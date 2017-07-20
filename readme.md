@@ -1,6 +1,6 @@
 # Sample
 
-Full buildable solution also provided in this repository.
+Full buildable solution also provided in the repository.
 
 ```csharp
 using System;
