@@ -9,20 +9,28 @@ namespace Interfax_35_sample
 	{
 		static void Main(string[] args)
 		{
-			const string username = "";
-			const string password = "";
+			const string username = "kfwls";
+			const string password = "Newjersei42";
 			const string faxFilePath = "test.pdf";
-			const string destinationFaxNumber = "+449999999999";
-			const string baseUri = "https://rest.interfax.net";
 
+			const string baseUri = "https://rest.interfax.net";
 			string uploadUri = "/outbound/faxes";
+
+			// Set configuration options
+			// See https://www.interfax.net/en/dev/rest/reference/2918
+			var options = new Dictionary<String, String>(){
+				{"faxNumber", "+449999999999"}
+			};
 
 			// Instatiate a web client
 			WebClient webClient = new WebClient();
-
-			// Add required configuration options
-			Dictionary<String, String> options = new Dictionary<string, string>();
-			uploadUri += "?" + "faxNumber" + "=" + destinationFaxNumber.Replace("+", "%2b");
+		
+			// Build url with configuration options
+			uploadUri += "?";
+			foreach (var x in options.Keys)
+			{
+				uploadUri += x + '=' + options[x] + '&';
+			}
 
 			// Add Authentication and Headers
 			var encodedAuth = Convert.ToBase64String(Encoding.ASCII.GetBytes(username + ":" + password));
